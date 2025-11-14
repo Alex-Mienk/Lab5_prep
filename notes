@@ -1,0 +1,99 @@
+
+
+Parts
+
+1.1) 
+If dir exists return path
+If file exists and its a zip
+arcname file name without extension
+Tempdir combines getTempPath and arcname
+
+Delete tempdir if it exists
+create tempdir
+Unzip the files to tempdir
+
+catch if the zips ops are not completed
+
+1.2) 
+If directory doesn’t exist throw
+Count = 0
+directory enumerateFiles
+if endsWith(suffix)
+count ++
+
+Recurse into the subdirs:
+dir enumerate Directories
+count + countfiles(on the looped dir)
+
+
+
+2.1)
+all private readonly
+string _path
+HashSet<string> _files, _dirs
+Filesystem Watcher _fileWatch, Dir_watch
+
+
+initialize file and dirwatcher with 
+notifierFilter = notifyFilters.filename and dirname
+
+Created/deleted/renamed
+Then for each file/dir.___ = on file/dir created
+
+
+public string[] Files => _files.ToArray();
+same for dirs
+
+if (eName != null)
+add to the hash set
+then for each created/deleted/renamed manipulate hash map with .Add, .Remove and e.oldName remove and then .Add(e.Path)
+
+DirectoryChanged?.Invoke(this, EventArgs.Empty) after each caller
+
+
+public void Dispose()
+
+_filewatcher.Dispose();
+
+
+2.2)
+under log
+
+using var watcher = new DirectoryWatcher(from prev part)
+
+
+void ondirchanged (object? sender, eventArtgs e)
+
+foreach dir in watcher.Directories
+writeline(format)
+
+same with files
+
+
+
+outside onchanged
+watcher.DirectoryChanged += OnDirChanged
+
+
+Console.writeline();
+
+
+class DirectorySource: IDataSource<string>, IDisposable
+public string Name ( get; }
+public IEnumerable<string> Data => new List<string>();
+public int Count => 0
+public event EventHandler? DataChanged;
+public DirectorySource (string path)
+Name = path;
+
+
+and at the end of the constructor 
+
+inputEventGenerator.Input += (sender, key) 
+{
+HandleInput (key) ;
+}
+
+
+
+
